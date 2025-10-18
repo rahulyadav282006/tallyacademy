@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin Login</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.form-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    width: 100%;
+    max-width: 450px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: formSlideIn 0.6s ease-out;
+}
+
+@keyframes formSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-size: 2.2rem;
+    font-weight: 600;
+    position: relative;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #3498db, #9b59b6);
+    border-radius: 2px;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 25px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    overflow: hidden;
+}
+
+.input-container:focus-within {
+    border-color: #3498db;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.15);
+}
+
+.icon {
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    min-width: 60px;
+    text-align: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.input-container:focus-within .icon {
+    background: linear-gradient(135deg, #2980b9, #3498db);
+    transform: scale(1.05);
+}
+
+.input-field {
+    width: 100%;
+    padding: 16px 20px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    background: transparent;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+}
+
+.input-field::placeholder {
+    color: #95a5a6;
+    transition: all 0.3s ease;
+}
+
+.input-field:focus::placeholder {
+    color: #bdc3c7;
+    transform: translateX(5px);
+}
+
+/* Password toggle */
+.password-container {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #7f8c8d;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+    padding: 5px;
+}
+
+.toggle-password:hover {
+    color: #3498db;
+}
+
+/* Button styles */
+.btn {
+    background: linear-gradient(135deg, #3498db, #9b59b6);
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+}
+
+.btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(52, 152, 219, 0.4);
+}
+
+/* Additional features */
+.form-footer {
+    text-align: center;
+    margin-top: 20px;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+.forgot-password {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-weight: 500;
+}
+
+.forgot-password:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+/* Loading animation */
+.btn.loading {
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.btn.loading::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Success animation */
+.input-container.success {
+    border-color: #27ae60;
+    box-shadow: 0 5px 15px rgba(39, 174, 96, 0.2);
+}
+
+.input-container.success .icon {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+}
+
+/* Error animation */
+.input-container.error {
+    border-color: #e74c3c;
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.2);
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+    .form-container {
+        padding: 30px 25px;
+        margin: 10px;
+    }
+    
+    h2 {
+        font-size: 1.8rem;
+    }
+    
+    .input-container {
+        margin-bottom: 20px;
+    }
+    
+    .icon {
+        padding: 14px 18px;
+        min-width: 55px;
+    }
+    
+    .input-field {
+        padding: 14px 18px;
+    }
+}
+
+/* Floating animation for form */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.form-container {
+    animation: float 6s ease-in-out infinite;
+}
+</style>
+</head>
+<body>
+
+<form action="/action_page.php" class="form-container">
+    <h2>Admin Login</h2>
+    
+    <div class="input-container" id="username-container">
+        <i class="fa fa-user icon"></i>
+        <input class="input-field" type="text" placeholder="Username" name="usrnm" id="username" required>
+    </div>
+    
+    <div class="input-container password-container" id="password-container">
+        <i class="fa fa-key icon"></i>
+        <input class="input-field" type="password" placeholder="Password" name="psw" id="password" required>
+        <button type="button" class="toggle-password" id="togglePassword">
+            <i class="fa fa-eye"></i>
+        </button>
+    </div>
+
+    <button type="submit" class="btn" id="loginBtn">Login</button>
+    
+    <div class="form-footer">
+        <a href="#" class="forgot-password">Forgot Password?</a>
+    </div>
+</form>
+
+<script>
+// Password visibility toggle
+const togglePassword = document.getElementById('togglePassword');
+const password = document.getElementById('password');
+
+togglePassword.addEventListener('click', function() {
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    this.innerHTML = type === 'password' ? '<i class="fa fa-eye"></i>' : '<i class="fa fa-eye-slash"></i>';
+});
+
+// Form validation and interaction
+const form = document.querySelector('form');
+const username = document.getElementById('username');
+const passwordInput = document.getElementById('password');
+const loginBtn = document.getElementById('loginBtn');
+const usernameContainer = document.getElementById('username-container');
+const passwordContainer = document.getElementById('password-container');
+
+// Add focus effects
+[username, passwordInput].forEach(input => {
+    input.addEventListener('focus', function() {
+        this.parentElement.style.transform = 'translateY(-2px)';
+        this.parentElement.style.boxShadow = '0 8px 25px rgba(52, 152, 219, 0.15)';
+    });
+    
+    input.addEventListener('blur', function() {
+        this.parentElement.style.transform = 'translateY(0)';
+        this.parentElement.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.08)';
+        
+        // Validate on blur
+        if (this.value.trim() !== '') {
+            this.parentElement.classList.add('success');
+            this.parentElement.classList.remove('error');
+        } else {
+            this.parentElement.classList.remove('success');
+        }
+    });
+});
+
+// Form submission
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    let isValid = true;
+    
+    // Validate username
+    if (username.value.trim() === '') {
+        usernameContainer.classList.add('error');
+        isValid = false;
+    } else {
+        usernameContainer.classList.remove('error');
+        usernameContainer.classList.add('success');
+    }
+    
+    // Validate password
+    if (passwordInput.value.trim() === '') {
+        passwordContainer.classList.add('error');
+        isValid = false;
+    } else {
+        passwordContainer.classList.remove('error');
+        passwordContainer.classList.add('success');
+    }
+    
+    if (isValid) {
+        // Simulate login process
+        loginBtn.classList.add('loading');
+        loginBtn.innerHTML = 'Logging in...';
+        
+        setTimeout(() => {
+            loginBtn.classList.remove('loading');
+            loginBtn.innerHTML = 'Login Successful!';
+            loginBtn.style.background = 'linear-gradient(135deg, #27ae60, #2ecc71)';
+            
+            setTimeout(() => {
+                alert('Login successful! Redirecting to admin dashboard...');
+                form.reset();
+                loginBtn.innerHTML = 'Login';
+                loginBtn.style.background = 'linear-gradient(135deg, #3498db, #9b59b6)';
+                usernameContainer.classList.remove('success');
+                passwordContainer.classList.remove('success');
+            }, 1000);
+        }, 2000);
+    }
+});
+
+// Add some interactive background elements
+document.addEventListener('DOMContentLoaded', function() {
+    const background = document.body;
+    
+    // Create floating particles
+    for (let i = 0; i < 15; i++) {
+        const particle = document.createElement('div');
+        particle.style.position = 'fixed';
+        particle.style.width = Math.random() * 10 + 5 + 'px';
+        particle.style.height = particle.style.width;
+        particle.style.background = 'rgba(255, 255, 255, 0.3)';
+        particle.style.borderRadius = '50%';
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.top = Math.random() * 100 + 'vh';
+        particle.style.pointerEvents = 'none';
+        particle.style.animation = `float ${Math.random() * 10 + 10}s linear infinite`;
+        background.appendChild(particle);
+    }
+});
+</script>
+
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</body>
+</html>

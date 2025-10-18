@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safetech Business Solutions - Tally Academy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary), #1a2530);
+            padding: 30px 0;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .jumbotron {
+            background: rgb(300, 300, 300, 0.1);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 0 auto;
+            max-width: 800px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgb(2300, 300, 300, 0.2);
+        }
+
+        #navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--primary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 16px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        #navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        #navbar a:hover:after {
+            width: 100%;
+        }
+
+        #navbar a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--secondary);
+            transition: width 0.3s ease;
+        }
+
+        #navbar a.active {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .content {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 60px;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section-title {
+            color: var(--primary);
+            border-bottom: 3px solid var(--secondary);
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            display: inline-block;
+        }
+
+        .feature-box {
+            background: var(--light);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--secondary);
+            transition: all 0.3s ease;
+        }
+
+        .feature-box:hover {
+            background: #e1e8ed;
+            transform: translateX(5px);
+        }
+
+        .course-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .course-card:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .course-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+
+        .contact-info {
+            background: var(--light);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-right: 15px;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--secondary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            #navbar a {
+                float: none;
+                display: block;
+                text-align: left;
+                width: 100%;
+                padding: 12px;
+            }
+
+            .director-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .content {
+                padding: 20px 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="jumbotron">
+            <h1 style="font-size: 3rem; font-weight: 700; margin-bottom: 10px;">Safetech Business Solutions</h1>
+            <p style="font-size: 1.5rem; opacity: 0.9;">Tally Academy</p>
+        </div>
+    </div>
+
+    <div id="navbar">
+        <a class="active" href="#home">Home</a>
+        <a href="#features">Features</a>
+        <a href="#courses">Courses</a>
+        <a href="#contact">Contact Us</a>
+        <a href="#hours">Opening Hours</a>
+    </div>
+
+    <div class="content">
+        <div class="section" id="home">
+            <h2 class="section-title">Empowering Careers Through Quality Computer Education</h2>
+            <p style="font-size: 1.2rem;">With 27 years of excellence in computer training, we provide comprehensive
+                courses and expert guidance to shape your successful career in the digital world.</p>
+        </div>
+
+        <div class="section" id="features">
+            <h2 class="section-title">Our Features</h2>
+
+            <div class="feature-box">
+                <h3 style="color: var(--primary);"><i class="fas fa-chalkboard-teacher"
+                        style="color: var(--secondary); margin-right: 10px;"></i>Excellent Staff</h3>
+                <p>All our faculty are well trained and provide personalized attention to help students throughout their
+                    learning journey.</p>
+            </div>
+
+            <div class="feature-box">
+                <h3 style="color: var(--primary);"><i class="fas fa-laptop-house"
+                        style="color: var(--secondary); margin-right: 10px;"></i>Flexible Learning Options</h3>
+                <p>Students can attend offline classes for on-the-spot support or access lectures through our e-learning
+                    platform with remote assistance.</p>
+            </div>
+
+            <div class="feature-box">
+                <h3 style="color: var(--primary);"><i class="fas fa-clock"
+                        style="color: var(--secondary); margin-right: 10px;"></i>No Time Limit</h3>
+                <p>Learn at your own pace with no rigid deadlines. We understand that everyone has different learning
+                    speeds and commitments.</p>
+            </div>
+            <img src="photo.jpg" width="400" height="300" alt="photo">
+            <h3>Mr. Abhijit Joshi</h3>
+            <p>Director - More than 30 years of experience in Computer Industry</p>
+
+        </div>
+    </div>
+
+    <div class="section" id="courses">
+        <h2 class="section-title">Our Courses</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 30px;">Comprehensive computer education programs designed for career
+            success</p>
+
+        <div class="course-card">
+            <div class="course-icon">
+                <i class="fas fa-desktop"></i>
+            </div>
+            <h3>Certificate in Office Automation</h3>
+            <p>Master essential office software including MS Office, typing, and internet applications.</p>
+        </div>
+
+        <div class="course-card">
+            <div class="course-icon">
+                <i class="fas fa-file-excel"></i>
+            </div>
+            <h3>Excel for Commerce</h3>
+            <p>Advanced Excel training tailored for commerce students and professionals.</p>
+        </div>
+
+        <div class="course-card">
+            <div class="course-icon">
+                <i class="fas fa-calculator"></i>
+            </div>
+            <h3>Smart Tally Specialist</h3>
+            <p>Comprehensive Tally training covering accounting, inventory, and taxation.</p>
+        </div>
+
+        <div class="course-card">
+            <div class="course-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>Smart Tally Expert</h3>
+            <p>Advanced Tally course with GST, payroll, and advanced financial management.</p>
+        </div>
+
+        <div class="course-card">
+            <div class="course-icon">
+                <i class="fas fa-code"></i>
+            </div>
+            <h3>Programming with Python</h3>
+            <p>Learn Python programming from basics to advanced applications.</p>
+        </div>
+    </div>
+
+    <div class="section" id="contact">
+        <h2 class="section-title">Contact Us</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 30px;">Get in touch with us for any queries or to enroll in our
+            courses</p>
+        <div class="contact-info">
+            <h3><i class="fas fa-map-marker-alt contact-icon"></i>Visit Our Institute</h3>
+            <h4>Our Location</h4>
+            <p>3&4 Omkar E Wing, Near Vikas Hospital<br>Navapur Rd, Boisar, Maharashtra 401501</p>
+        </div>
+
+        <div class="contact-info">
+            <h4><i class="fas fa-envelope contact-icon"></i>Email Address</h4>
+            <p>tallyacademy@gmail.com</p>
+        </div>
+    </div>
+
+    <div class="section" id="hours">
+        <h2 class="section-title">Opening Hours</h2>
+        <div class="contact-info">
+            <h4><i class="fas fa-clock contact-icon"></i>Operating Hours</h4>
+            <p>Monday to Saturday: 9:00 AM to 9:00 PM</p>
+        </div>
+    </div>
+    </div>
+    <div class="button-container">
+        <a href="student_inquiry.html" class="btn nav-btn" id="dashboardBtn">
+            <i class="fa fa-tachometer"></i> Admin page
+        </a>
+    </div>
+
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+    <script>
+        // Sticky navbar
+        window.onscroll = function () { stickyNavbar() };
+
+        var navbar = document.getElementById("navbar");
+        var sticky = navbar.offsetTop;
+
+        function stickyNavbar() {
+            if (window.pageYOffset >= sticky) {
+                navbar.classList.add("sticky")
+            } else {
+                navbar.classList.remove("sticky");
+            }
+
+            // Show/hide back to top button
+            var backToTop = document.getElementById("backToTop");
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add("show");
+            } else {
+                backToTop.classList.remove("show");
+            }
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // Remove active class from all links
+                document.querySelectorAll('#navbar a').forEach(link => {
+                    link.classList.remove('active');
+                });
+
+                // Add active class to clicked link
+                this.classList.add('active');
+
+                // Scroll to target
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                window.scrollTo({
+                    top: targetElement.offsetTop - 70,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Back to top functionality
+        document.getElementById('backToTop').addEventListener('click', function () {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Update active nav link on scroll
+        window.addEventListener('scroll', function () {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('#navbar a');
+
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+
+                if (pageYOffset >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
